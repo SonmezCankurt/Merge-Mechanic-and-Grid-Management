@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gridManager.BeginGridCreating();
+        SpawnUnit(Unit.Tier.Tier1);
+        SpawnUnit(Unit.Tier.Tier1);
+        SpawnUnit(Unit.Tier.Tier1);
+        SpawnUnit(Unit.Tier.Tier1);
     }
 
     void Update()
@@ -68,7 +72,7 @@ public class GameManager : MonoBehaviour
 
             if (uData != null)
             {
-                GameObject go = Instantiate(uData.unitPrefab, gridCellObject.transform.position + Vector3.up * 1f, Quaternion.identity);
+                GameObject go = Instantiate(uData.unitPrefab, gridCellObject.transform.position + uData.unitPrefab.transform.position, Quaternion.identity);
 
                 Vector3 tmpScale = go.transform.localScale;
 
@@ -153,5 +157,63 @@ public class GameManager : MonoBehaviour
     public void SetupUnit(Unit unitScript, UnitData uDataRef)
     {
         unitScript.Activate(uDataRef);
+    }
+
+    public bool MergeUnits(GridCell firstGridCell, UnitData secondUnitData, GridCell secondGridCell, Transform gridTransform)
+    {
+        bool retVal = false;
+
+        UnitData uData = FindUnitDataFromDatabase(unitsDatabase.allUnits, (Unit.Tier)(secondUnitData.tier + 1));
+
+        if (uData != null)
+        {
+
+            Unit first = firstGridCell.attachedUnit.GetComponent<Unit>();
+            Unit second = secondGridCell.attachedUnit.GetComponent<Unit>();
+
+            if (first != null && second != null)
+            {
+
+                Destroy(firstGridCell.attachedUnit);
+                Destroy(secondGridCell.attachedUnit);
+
+                firstGridCell.attachedUnit = null;
+                secondGridCell.attachedUnit = null;
+
+                GameObject go = Instantiate(uData.unitPrefab, gridTransform.position + Vector3.up * 0.1f, Quaternion.identity);
+
+                Vector3 tmpScale = go.transform.localScale;
+                Debug.Log("tmpScale spawn Unit : " + tmpScale);
+
+                go.transform.DOScale(tmpScale / 2, 0).OnComplete(() => {
+                    go.transform.DOScale(tmpScale * 1.1f, 0.15f).OnComplete(() => {
+                        go.transform.DOScale(tmpScale, 0.15f).OnComplete(() => {
+                            go.GetComponent<Unit>().scaleObjectOnGrid = tmpScale;
+                            go.GetComponent<Unit>().isAvailableScaleControlOnGrid = true;
+                        });
+                    });
+                });
+
+                SetupUnit(go.GetComponent<Unit>(), uData);
+                secondGridCell.attachedUnit = go;
+
+                retVal = true;
+
+            }
+            else
+            {
+                retVal = false;
+            }
+
+
+
+        }
+        else
+        {
+            retVal = false;
+        }
+
+        return retVal;
+
     }
 }
