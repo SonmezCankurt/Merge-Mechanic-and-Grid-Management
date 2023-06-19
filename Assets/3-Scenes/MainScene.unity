@@ -178,6 +178,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridManager: {fileID: 443421963}
+  gridSystemChannel: {fileID: 11400000, guid: 7d2348340e8094747b324b60a909dc56, type: 2}
+  unitsDatabase: {fileID: 11400000, guid: 30c813a8451f88442a35f1a4ed8eec0c, type: 2}
+  gridCells: []
 --- !u!4 &443421965
 Transform:
   m_ObjectHideFlags: 0

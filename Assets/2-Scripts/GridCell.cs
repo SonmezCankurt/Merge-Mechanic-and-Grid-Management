@@ -12,16 +12,10 @@ public class GridCell : MonoBehaviour
 
     void Start()
     {
-
     }
 
     void Update()
     {
-        /* if (GameManager.CurrentGameState.Equals(GameManager.GameState.PREPARED) && !DragManager.isDragging && attachedUnit != null &&
-             attachedUnit.GetComponent<Unit>().isAvailableScaleControlOnGrid)
-         {
-             attachedUnit.transform.localScale = attachedUnit.GetComponent<Unit>().scaleObjectOnGrid;
-         }*/
     }
 
     public void SetActiveHoverIndicator()

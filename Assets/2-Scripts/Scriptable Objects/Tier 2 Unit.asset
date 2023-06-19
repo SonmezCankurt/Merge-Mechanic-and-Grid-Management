@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a275019d30cc342479c183c7d0671c0f, type: 3}
+  m_Name: Tier 2 Unit
+  m_EditorClassIdentifier: 
+  unitPrefab: {fileID: 97461118415801924, guid: e0198089b0e3749488c2f30f7db78642, type: 3}
+  tier: 2
+  attackRatio: 1
+  damagePerAttack: 2
+  attackRange: 1
+  hitPoints: 10
+  movementSpeed: 5
